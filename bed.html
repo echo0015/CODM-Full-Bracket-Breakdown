@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALL OF DUTY: MOBILE - TLC 2K26</title>
+    <style>
+        /* CODM Style Font Import - Using a bold slanted look */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Roboto+Condensed:ital,wght@1,700&display=swap');
+
+        :root {
+            --codm-yellow: #f3c31b;
+            --codm-bg: #05070a;
+            --codm-panel: rgba(18, 22, 28, 0.95);
+            --codm-border: #3a4149;
+            --glow: 0 0 10px rgba(243, 195, 27, 0.6);
+            --font-main: 'Roboto Condensed', sans-serif;
+            --font-header: 'Orbitron', sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background: var(--codm-bg);
+            color: white;
+            font-family: var(--font-main);
+            text-transform: uppercase;
+            min-height: 100vh;
+            font-style: italic;
+        }
+
+        /* Tactical Background Grid */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(243, 195, 27, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(243, 195, 27, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        #splash {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: black;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .boot-frame {
+            border-top: 4px solid var(--codm-yellow);
+            border-bottom: 4px solid var(--codm-yellow);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 5;
+            display: none;
+        }
+
+        /* CATEGORY SELECTOR */
+        .category-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .cat-btn {
+            background: #1a1a1a;
+            border: 1px solid var(--codm-border);
+            color: #888;
+            padding: 10px 40px;
+            font-family: var(--font-header);
+            cursor: pointer;
+            transition: 0.3s;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+        }
+
+        .cat-btn.active {
+            background: var(--codm-yellow);
+            color: black;
+            border-color: var(--codm-yellow);
+            box-shadow: var(--glow);
+        }
+
+        header {
+            margin-bottom: 30px;
+            border-left: 8px solid var(--codm-yellow);
+            padding-left: 20px;
+        }
+
+        header h1 {
+            font-size: clamp(1.5rem, 6vw, 3rem);
+            margin: 0;
+            color: var(--codm-yellow);
+            font-family: var(--font-header);
+        }
+
+        .bracket-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @media (min-width: 900px) {
+            .bracket-grid { flex-direction: row; gap: 40px; }
+            .column { flex: 1; }
+        }
+
+        .column-header {
+            background: var(--codm-yellow);
+            color: black;
+            padding: 5px 15px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            font-weight: 900;
+            display: inline-block;
+        }
+
+        .match-card {
+            background: var(--codm-panel);
+            border: 1px solid var(--codm-border);
+            margin-bottom: 20px;
+            padding: 15px;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 96% 100%, 0 100%);
+        }
+
+        .match-card.gold { border-left: 5px solid var(--codm-yellow); }
+
+        .meta {
+            color: var(--codm-yellow);
+            font-size: 0.6rem;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+        }
+
+        .team-row { display: flex; justify-content: space-between; font-size: 1.2rem; padding: 8px 0; font-weight: 900; }
+
+        .score-box { background: #222; padding: 0 10px; color: var(--codm-yellow); }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.6rem;
+            color: #444;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="splash" onclick="bootSystem()">
+        <div class="boot-frame">
+            <div style="letter-spacing: 5px; color: #fff; margin-bottom: 10px;">CALL OF DUTY: MOBILE</div>
+            <div style="color: var(--codm-yellow); font-size: 2.5rem; font-family: var(--font-header); text-shadow: var(--glow);">INITIALIZE SYSTEM</div>
+            <div style="color: #666; margin-top: 15px; font-size: 0.8rem;">TAP TO ENABLE AUDIO & HUD</div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="codm.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container" id="mainUI">
+        <div class="category-nav">
+            <a class="cat-btn" href="index.html" >HED</a>
+            <a class="cat-btn active" href="bed.html" >BED</a>
+        </div>
+
+        <header>
+            <div style="font-size: 0.7rem; letter-spacing: 4px; color: #888;">DIVISION: <span id="currentDiv">Basic Education Department</span></div>
+            <h1>TLC INTRAMURALS 2K26</h1>
+            <div style="color: var(--codm-yellow); font-size: 0.8rem; margin-top: 5px;">SEARCH & DESTROY // MULTIPLAYER</div>
+        </header>
+
+        <div class="bracket-grid">
+            <div class="column">
+                <div class="column-header">PHASE 01: ELIMINATION (BO5)</div>
+                <div class="match-card">
+                    <div class="meta"><span class="match-id">HED_M01</span><span>TARGET: 3 WINS</span></div>
+                    <div class="team-row"><span>TEAM 1</span><span class="score-box">0</span></div>
+                    <div class="team-row"><span>TEAM 2</span><span class="score-box">0</span></div>
+                </div>
+                <div class="match-card">
+                    <div class="meta"><span class="match-id">HED_M02</span><span>TARGET: 3 WINS</span></div>
+                    <div class="team-row"><span>TEAM 3</span><span class="score-box">--</span></div>
+                    <div class="team-row"><span>TEAM 4</span><span class="score-box">--</span></div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="column-header">PHASE 02: FINALS</div>
+                <div class="match-card gold">
+                    <div class="meta"><span>CHAMPIONSHIP (BO7)</span><span>TARGET: 4 WINS</span></div>
+                    <div class="team-row"><span style="color: var(--codm-yellow);">WINNER M1</span><span class="score-box">--</span></div>
+                    <div class="team-row"><span style="color: var(--codm-yellow);">WINNER M2</span><span class="score-box">--</span></div>
+                </div>
+                <div class="match-card">
+                    <div class="meta"><span>RUNNER-UP (BO5)</span><span>TARGET: 3 WINS</span></div>
+                    <div class="team-row"><span>LOSER M1</span><span class="score-box">--</span></div>
+                    <div class="team-row"><span>LOSER M2</span><span class="score-box">--</span></div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            FJN 2ND FLOOR CORRIDOR // J. HITA & J. LORIA // CALL OF DUTY: MOBILE
+        </footer>
+    </div>
+
+    <script>
+        function bootSystem() {
+            document.getElementById('splash').style.display = 'none';
+            document.getElementById('mainUI').style.display = 'block';
+            document.getElementById('bgMusic').play();
+        }
+
+        function switchCategory(cat, btn) {
+            // Update buttons
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Update Text Data
+            document.getElementById('currentDiv').innerText = cat;
+            
+            // Update Match IDs in UI
+            const ids = document.querySelectorAll('.match-id');
+            ids[0].innerText = cat + "_M01";
+            ids[1].innerText = cat + "_M02";
+
+            // Optional: You can reset scores or load specific data here
+            console.log("Switching Tactical Data to: " + cat);
+        }
+    </script>
+</body>
+</html>
