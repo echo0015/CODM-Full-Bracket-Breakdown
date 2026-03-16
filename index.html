@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALL OF DUTY: MOBILE - TLC 2K26</title>
+    <style>
+        /* CODM Style Font Import - Using a bold slanted look */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Roboto+Condensed:ital,wght@1,700&display=swap');
+
+        :root {
+            --codm-yellow: #f3c31b;
+            --codm-bg: #05070a;
+            --codm-panel: rgba(18, 22, 28, 0.95);
+            --codm-border: #3a4149;
+            --glow: 0 0 10px rgba(243, 195, 27, 0.6);
+            --font-main: 'Roboto Condensed', sans-serif;
+            --font-header: 'Orbitron', sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background: var(--codm-bg);
+            color: white;
+            font-family: var(--font-main);
+            text-transform: uppercase;
+            min-height: 100vh;
+            font-style: italic;
+        }
+
+        /* Tactical Background Grid */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(243, 195, 27, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(243, 195, 27, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* INITIALIZE SYSTEM SPLASH */
+        #splash {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: black;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .boot-frame {
+            border-top: 4px solid var(--codm-yellow);
+            border-bottom: 4px solid var(--codm-yellow);
+            padding: 40px 60px;
+            text-align: center;
+        }
+
+        .boot-btn {
+            color: var(--codm-yellow);
+            font-size: 2.5rem;
+            letter-spacing: 8px;
+            font-family: var(--font-header);
+            text-shadow: var(--glow);
+        }
+
+        .audio-note {
+            color: #ffffff;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-top: 20px;
+            opacity: 0.6;
+        }
+
+        /* MAIN UI */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 5;
+            display: none;
+        }
+
+        header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--codm-border);
+            padding-bottom: 10px;
+        }
+
+        .codm-brand {
+            font-family: var(--font-header);
+            font-size: 0.9rem;
+            color: #fff;
+            letter-spacing: 5px;
+            margin-bottom: 5px;
+        }
+
+        header h1 {
+            font-size: clamp(1.8rem, 8vw, 3.5rem);
+            margin: 0;
+            color: var(--codm-yellow);
+            font-family: var(--font-header);
+            line-height: 0.9;
+            text-shadow: var(--glow);
+        }
+
+        .bracket-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @media (min-width: 900px) {
+            .bracket-grid { flex-direction: row; gap: 40px; }
+            .column { flex: 1; }
+        }
+
+        .column-header {
+            background: var(--codm-yellow);
+            color: black;
+            padding: 5px 15px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            font-weight: 900;
+            display: inline-block;
+            clip-path: polygon(0 0, 90% 0, 100% 100%, 0% 100%);
+        }
+
+        .match-card {
+            background: var(--codm-panel);
+            border: 1px solid var(--codm-border);
+            margin-bottom: 20px;
+            padding: 20px;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 96% 100%, 0 100%);
+        }
+
+        .match-card::before {
+            content: "OPERATIONAL DATA";
+            position: absolute;
+            top: 5px; right: 10px;
+            font-size: 0.5rem;
+            color: #444;
+        }
+
+        .match-card.gold { border-left: 6px solid var(--codm-yellow); }
+
+        .meta {
+            color: var(--codm-yellow);
+            font-size: 0.7rem;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .team-row { 
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 1.4rem; 
+            padding: 10px 0;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .score-box {
+            background: #222;
+            padding: 0 15px;
+            color: var(--codm-yellow);
+        }
+
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #666;
+            letter-spacing: 2px;
+            border-top: 1px solid #222;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="splash" onclick="bootSystem()">
+        <div class="boot-frame">
+            <div class="codm-brand">CALL OF DUTY: MOBILE</div>
+            <div class="boot-btn">INITIALIZE SYSTEM</div>
+            <div class="audio-note">ACTIVATE AUDIO RECEPTORS // TLC 2K26</div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="codm.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container" id="mainUI">
+        <header>
+            <div class="codm-brand">CALL OF DUTY: MOBILE</div>
+            <h1>TLC INTRAMURALS 2K26</h1>
+            <div style="color: #666; font-size: 0.8rem; margin-top: 10px; letter-spacing: 2px;">
+                S&D // MULTIPLAYER MODE // RANDOM MAP SELECTION
+            </div>
+        </header>
+
+        <div class="bracket-grid">
+            <div class="column">
+                <div class="column-header">FIRST ROUND (BEST-OF-5)</div>
+                <div class="match-card">
+                    <div class="meta"><span>MATCH ID: 001</span><span>FIRST TO 3 WINS</span></div>
+                    <div class="team-row"><span>TEAM 1</span><span class="score-box">--</span></div>
+                    <div class="team-row"><span>TEAM 2</span><span class="score-box">--</span></div>
+                </div>
+                <div class="match-card">
+                    <div class="meta"><span>MATCH ID: 002</span><span>FIRST TO 3 WINS</span></div>
+                    <div class="team-row"><span>TEAM 3</span><span class="score-box">--</span></div>
+                    <div class="team-row"><span>TEAM 4</span><span class="score-box">--</span></div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="column-header">PHASE 02: FINALS</div>
+                <div class="match-card gold">
+                    <div class="meta"><span>CHAMPIONSHIP (BEST-OF-7)</span><span>FIRST TO 4 WINS</span></div>
+                    <div class="team-row"><span style="color: var(--codm-yellow);">WINNER M1</span><span class="score-box">--</span></div>
+                    <div class="team-row"><span style="color: var(--codm-yellow);">WINNER M2</span><span class="score-box">--</span></div>
+                </div>
+                
+                <div class="column-header" style="background: #444; color: #fff;">RUNNER-UP MATCH (BEST-OF-5)</div>
+                <div class="match-card">
+                    <div class="meta"><span>3RD PLACE DECIDER</span><span>FIRST TO 3 WINS</span></div>
+                    <div class="team-row"><span>LOSER M1</span><span class="score-box">--</span></div>
+                    <div class="team-row"><span>LOSER M2</span><span class="score-box">--</span></div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            VENUE: FJN 2ND FLOOR CORRIDOR // GRACE PERIOD: 5 MINS // OFFICIALS: J. HITA & J. LORIA
+        </footer>
+    </div>
+
+    <script>
+        function bootSystem() {
+            document.getElementById('splash').style.display = 'none';
+            document.getElementById('mainUI').style.display = 'block';
+            
+            var audio = document.getElementById('bgMusic');
+            audio.play().catch(function(error) {
+                console.log("Audio failed. Check if codm.mp3 exists in the directory.");
+            });
+        }
+    </script>
+</body>
+</html>
