@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CALL OF DUTY: MOBILE - TLC 2K26</title>
     <style>
-        /* CODM Style Font Import - Using a bold slanted look */
+        /* CODM Style Font Import */
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Roboto+Condensed:ital,wght@1,700&display=swap');
 
         :root {
@@ -29,6 +29,7 @@
             text-transform: uppercase;
             min-height: 100vh;
             font-style: italic;
+            overflow-x: hidden;
         }
 
         /* Tactical Background Grid */
@@ -44,6 +45,7 @@
             pointer-events: none;
         }
 
+        /* SPLASH SCREEN */
         #splash {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -63,6 +65,7 @@
             text-align: center;
         }
 
+        /* MAIN UI CONTAINER */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -72,7 +75,6 @@
             display: none;
         }
 
-        /* CATEGORY SELECTOR */
         .category-nav {
             display: flex;
             gap: 10px;
@@ -84,11 +86,13 @@
             background: #1a1a1a;
             border: 1px solid var(--codm-border);
             color: #888;
-            padding: 10px 40px;
+            padding: 10px 30px;
             font-family: var(--font-header);
             cursor: pointer;
             transition: 0.3s;
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+            text-decoration: none;
+            font-size: 0.8rem;
         }
 
         .cat-btn.active {
@@ -111,10 +115,12 @@
             font-family: var(--font-header);
         }
 
+        /* BRACKET GRID */
         .bracket-grid {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 20px;
+            margin-bottom: 40px;
         }
 
         @media (min-width: 900px) {
@@ -127,7 +133,7 @@
             color: black;
             padding: 5px 15px;
             font-size: 0.9rem;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-weight: 900;
             display: inline-block;
         }
@@ -135,7 +141,7 @@
         .match-card {
             background: var(--codm-panel);
             border: 1px solid var(--codm-border);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             padding: 15px;
             clip-path: polygon(0 0, 100% 0, 100% 85%, 96% 100%, 0 100%);
         }
@@ -152,16 +158,65 @@
             padding-bottom: 5px;
         }
 
-        .team-row { display: flex; justify-content: space-between; font-size: 1.2rem; padding: 8px 0; font-weight: 900; }
-
+        .team-row { display: flex; justify-content: space-between; font-size: 1.1rem; padding: 6px 0; font-weight: 900; }
         .score-box { background: #222; padding: 0 10px; color: var(--codm-yellow); }
 
+        /* --- RESPONSIVE POSTER GRID --- */
+        .poster-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .poster-container {
+            /* Desktop: 2 posters per row */
+            flex: 1 1 calc(50% - 15px);
+            border: 1px solid var(--codm-border);
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            position: relative;
+        }
+
+        .poster-container::before {
+            content: "OPERATIONAL_INTEL";
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: var(--codm-bg);
+            padding: 0 5px;
+            font-size: 0.5rem;
+            color: var(--codm-yellow);
+            border: 1px solid var(--codm-border);
+            z-index: 2;
+        }
+
+        .team-poster {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid rgba(243, 195, 27, 0.2);
+            filter: brightness(0.9) contrast(1.1);
+        }
+
+        /* Mobile Adjustments (1 per row) */
+        @media (max-width: 768px) {
+            .poster-container {
+                flex: 1 1 100%;
+            }
+            .container { padding: 15px; }
+            header { padding-left: 10px; }
+        }
+
         .footer {
-            margin-top: 40px;
+            margin-top: 50px;
             text-align: center;
             font-size: 0.6rem;
             color: #444;
             letter-spacing: 2px;
+            padding-bottom: 30px;
+            border-top: 1px solid #1a1a1a;
+            padding-top: 20px;
         }
     </style>
 </head>
@@ -221,6 +276,21 @@
             </div>
         </div>
 
+        <div class="poster-grid">
+            <div class="poster-container">
+                <img src="bedteam1.png" alt="Team 1" class="team-poster">
+            </div>
+            <div class="poster-container">
+                <img src="bedteam2.png" alt="Team 2" class="team-poster">
+            </div>
+            <div class="poster-container">
+                <img src="bedteam3.png" alt="Team 3" class="team-poster">
+            </div>
+            <div class="poster-container">
+                <img src="bedteam4.png" alt="Team 4" class="team-poster">
+            </div>
+        </div>
+        
         <footer class="footer">
             VENUE: RFL 2nd Floor Corridor // J. HITA & J. LORIA // CALL OF DUTY: MOBILE
         </footer>
